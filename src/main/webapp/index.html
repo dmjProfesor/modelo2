@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ejemplo resuelto:Junio SL</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <div class="formulario">
+  	<form onsubmit="return false">
+  		<label>Materia<input type="text"  required name="modulo" id="asignatura">	</label><br>
+  		<label>Comentario<input type="text" required name="comentario" id="info"></label><br>
+  		<label>Duración en minutos: <input required type="number" name="tiempo" id="min" min="0"></label><br>
+  		<label>Fecha del examen <input required type="date" name="fecha" id="fecha"></label><br>
+  		<button id="btn1" type="submit">Subir examen</button>
+  		<input type="reset">
+  	</form>
+  </div>
+  
+ <ul></ul>
+  
+  <div class="tabla">
+  	<button  data-filtro="0" id="btn2">Ver todos</button>
+  	<button data-filtro="1" id="btn3">Próximos</button>
+  	<button  data-filtro="2" id="btn4">TOP 10</button>
+  	<button  id="btn5" style="background-color:green;">Furia</button>
+  	<table>
+  		<thead>
+  			<tr>
+  				<th>Fecha</th>
+  				<th>Módulo</th>
+  				<th>Observación</th>
+  				<th>Duración</th>
+  				<th>Aprobados</th>
+  				<th>Suspensos</th>
+  				<th>Acciones</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  			<!-- Aqui van los pedidos que se vayan generando -->
+  		</tbody>
+  	</table>
+  
+  </div>
+  <div class="total" id="total"></div>
+</div>
+<script src="script.js"> </script>
+</body>
+</html>
