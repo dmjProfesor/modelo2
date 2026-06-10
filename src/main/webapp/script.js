@@ -4,6 +4,7 @@
 var ids = 1;
 var pruebas = [];
 var furia = false;
+let filtroActivo = 0; //añadido nuevo
 class examen{
 	constructor(materia,observacion,duracion,fecha,id){
 		this.suspensos=0;
@@ -26,11 +27,11 @@ const btn1 = document.getElementById("btn1");
 btn1.addEventListener("click",registrarPrueba);
 
 const btn2 = document.getElementById("btn2");
-btn2.addEventListener("click",()=>filtrar(0));
+btn2.addEventListener("click",()=>configurarFiltro(0));
 const btn3 = document.getElementById("btn3");
-btn3.addEventListener("click",()=>filtrar(1));
+btn3.addEventListener("click",()=>configurarFiltro(1));
 const btn4 = document.getElementById("btn4");
-btn4.addEventListener("click",()=>filtrar(2));
+btn4.addEventListener("click",()=>configurarFiltro(2));
 const btn5 = document.getElementById("btn5");
 btn5.addEventListener("click",(e)=>{
 	if(furia){
@@ -71,15 +72,18 @@ function registrarPrueba(){
 	ids++;
 	pruebas.push(examenReg);
 	//escritura
-	escribirPruebas(pruebas);
+	filtrar();
 	guardarCambios();
 }
 
 
-
-function filtrar(valor){
+function configurarFiltro(valor){
+	filtroActivo=valor;
+	filtrar();
+}
+function filtrar(){
 	let pruebasFiltradas;
-	switch(valor){
+	switch(filtroActivo){
 		case 1:
 			let hoy=new Date();
 			let semana = new Date();
@@ -146,7 +150,7 @@ function escribirPruebas(pr){
 			}
 			//asignamos
 			mod.aprobados=aprob;
-			escribirPruebas(pr);
+			filtrar();
 			guardarCambios();
 		})
 		let btnSusp = document.createElement("button");
@@ -168,7 +172,7 @@ function escribirPruebas(pr){
 			}
 			//asignamos
 			mod.suspensos=susp;
-			escribirPruebas(pr);
+			filtrar();
 			guardarCambios();
 		});
 		let btnEliminar = document.createElement("button");
@@ -188,9 +192,8 @@ function escribirPruebas(pr){
 			}
 			//eliminamos
 			pruebas.splice(mod,1);
-			let modFiltrado = pr.findIndex(p=>p.id==e.target.dataset.id);
-			pr.splice(modFiltrado,1);
-			escribirPruebas(pr);
+			//cambio para evitar bug de doble borrado si no hay filtro activo
+			filtrar();
 			guardarCambios();
 		});
 		celda7.appendChild(btnAprob);
